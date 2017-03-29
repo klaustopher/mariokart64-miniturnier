@@ -1,0 +1,18 @@
+%h1
+  = succeed ':' do
+    = TracksController::WORLDS[@track[:category]]
+  = @track[:name]
+
+= image_tag "tracks/#{@track[:category]}-#{@track[:number]}", width: 400
+
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+.row
+  .col-md-12
+    = link_to 'Alle Strecken', tracks_path, class: 'btn btn-primary'
+    - 1.upto(4) do |i|
+      = link_to TracksController::WORLDS[i], tracks_path(category: i), class: 'btn btn-primary'
