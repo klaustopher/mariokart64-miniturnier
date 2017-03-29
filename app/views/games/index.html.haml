@@ -1,0 +1,41 @@
+.row
+  - @participants_for_race.in_groups_of(4).each_with_index do |grp, index|
+    .col-lg-4
+      = form_tag(race_path) do
+        %h3= "Rennen #{index+1}"
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Name
+              %th Platzierung
+          %tbody
+            - grp.each do |participant|
+              %tr
+                %td= participant&.name || '-'
+                %td
+                  - if participant
+                    = number_field_tag "points[#{participant.id}]", '', min: 1, max: 4, class: 'form-control'
+
+        = submit_tag "Resultat speichern", class: 'btn btn-primary'
+
+%br/
+%br/
+%br/
+%br/
+%br/
+
+.row
+  .col-lg-6.offset-lg-3
+    %h1 aktuelles Ranking
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th Punkte
+          %th Rennen
+      %tbody
+        - @participants.each do |participant|
+          %tr
+            %td= participant&.name || '-'
+            %td= participant&.points || '-'
+            %td= participant&.races || '-'
